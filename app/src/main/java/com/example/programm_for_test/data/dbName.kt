@@ -14,7 +14,7 @@ object dbName: BaseColumns {
         "CREATE TABLE $TABLE_NAME (" +
             "${BaseColumns._ID} INTEGER PRIMARY KEY," +
             "$COLUMN_NAME_CRYPTO TEXT," +
-            "$COLUMN_NAME_PERCENT TEXT)"
+            "$COLUMN_NAME_PERCENT REAL)"
 
     const val SQL_DELETE_TABLE = "DROP TABLE IF EXISTS $TABLE_NAME"
 }

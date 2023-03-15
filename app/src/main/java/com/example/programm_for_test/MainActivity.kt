@@ -17,15 +17,18 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickParse(view: View) {
         dbmanager.openDb()
-        dbmanager.insertData("btc", "0.00")
+        dbmanager.insertData("eph", 0.00)
     }
 
 
     fun onClickShow(view: View) {
         infoCrypto.text = ""
         val dataList = dbmanager.readDbData()
+        infoCrypto.append(dataList.size.toString())
+        var i = 0
         for(item in dataList) {
-            infoCrypto.append(item)
+            infoCrypto.append("$item +  $i")
+            i++
             infoCrypto.append("\n")
         }
     }
