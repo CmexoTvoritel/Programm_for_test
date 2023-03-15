@@ -13,7 +13,7 @@ class dbManager(context: Context) {
         db = dbcreatehelper.writableDatabase
     }
 
-    fun insertData(crypto: String, percent: Double) {
+    fun insertData(crypto: String, percent: String) {
         val values = ContentValues().apply {
             put(dbName.COLUMN_NAME_CRYPTO, crypto)
             put(dbName.COLUMN_NAME_PERCENT, percent)
@@ -25,13 +25,15 @@ class dbManager(context: Context) {
     @SuppressLint("Range")
     fun readDbData(): MutableList<String> {
         val cryptoNameList = mutableListOf <String>()
-        val cursor = db?.query(dbName.CREATE_TABLE, null, null, null, null, null, null)
-        with(cursor) {
-            while(this?.moveToNext()!!) {
-                cryptoNameList.add(cursor?.getString(cursor.getColumnIndex(dbName.COLUMN_NAME_CRYPTO)).toString())
-            }
+        val cursor = db?.query(dbName.TABLE_NAME, null, null, null, null, null, null)
+        while(cursor?.moveToNext()!!) {
+                cryptoNameList.add(cursor.getString(cursor.getColumnIndex(dbName.COLUMN_NAME_CRYPTO)).toString())
         }
-
+        cursor.close()
         return cryptoNameList
+    }
+
+    fun closeDb() {
+        dbcreatehelper.close()
     }
 }

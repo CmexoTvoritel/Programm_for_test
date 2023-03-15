@@ -10,7 +10,8 @@ object dbName: BaseColumns {
     const val DATABASE_VERSION = 1
     const val DATABASE_NAME = "crypto.db"
 
-    const val CREATE_TABLE = "CREATE TABLE IF NOT EXISTS $TABLE_NAME (" +
+    const val CREATE_TABLE =
+        "CREATE TABLE $TABLE_NAME (" +
             "${BaseColumns._ID} INTEGER PRIMARY KEY," +
             "$COLUMN_NAME_CRYPTO TEXT," +
             "$COLUMN_NAME_PERCENT TEXT)"
