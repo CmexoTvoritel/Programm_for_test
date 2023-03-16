@@ -37,21 +37,22 @@ class MainActivity : AppCompatActivity() {
                 val infoFromApiCrypto = functionsApi.getDataFromApi()
                 dbmanager.openDb()
                 dbmanager.insertData(infoFromApiCrypto)
-                infoCrypto.text = "DataBase was updated successful!"
+                info.text = "DataBase was updated successful!"
             }
         }
-
-        infoCrypto.text = "Before click buttons, plz wait!"
+        cryptoItem.text = ""
+        info.text = "Before click buttons, plz wait!"
 
     }
 
 
     fun onClickShow(view: View) {
-        infoCrypto.text = ""
+        cryptoItem.text = ""
+        info.text = "Info about crypto:"
         val dataList = dbmanager.readDbData()
         for(item in dataList) {
-            infoCrypto.append("${item.first} : ${item.second}")
-            infoCrypto.append("\n")
+            cryptoItem.append("${item.first} : ${item.second}")
+            cryptoItem.append("\n")
         }
     }
 
