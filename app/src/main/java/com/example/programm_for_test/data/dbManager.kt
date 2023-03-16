@@ -14,29 +14,30 @@ class dbManager(context: Context) {
         db = dbcreatehelper.writableDatabase
     }
 
-    fun insertData(crypto: String, percent: Double) {
+    fun insertData(arrayCrypto: ArrayList<Pair<String, String>>) {
         db?.delete(dbName.TABLE_NAME, null, null)
+        for (elem in arrayCrypto) {
+            val values = ContentValues().apply {
+                put(dbName.COLUMN_NAME_CRYPTO, elem.first)
+                put(dbName.COLUMN_NAME_PERCENT, elem.second)
 
-        val values = ContentValues().apply {
-            put(dbName.COLUMN_NAME_CRYPTO, crypto)
-            put(dbName.COLUMN_NAME_PERCENT, percent)
-
+            }
+            db?.insert(dbName.TABLE_NAME, null, values)
         }
-        db?.insert(dbName.TABLE_NAME, null, values)
     }
 
     @SuppressLint("Range")
-    fun readDbData(): MutableList<String> {
+    fun readDbData(): ArrayList<Pair<String, String>> {
         db = dbcreatehelper.readableDatabase
 
-        val cryptoNameList = mutableListOf<String>()
+        val cryptoNameList = arrayListOf<Pair<String, String>>()
         val cursor = db?.query(dbName.TABLE_NAME, null, null, null, null, null, null)
+        var i = 0
 
         while(cursor?.moveToNext()!!) {
             val dataCrypto = cursor.getString(cursor.getColumnIndex(dbName.COLUMN_NAME_CRYPTO))
             val dataPercent = cursor.getString(cursor.getColumnIndex(dbName.COLUMN_NAME_PERCENT))
-            cryptoNameList.add(dataCrypto.toString())
-            cryptoNameList.add(dataPercent.toString())
+            cryptoNameList += Pair(dataCrypto, dataPercent)
         }
         cursor.close()
         return cryptoNameList
