@@ -33,10 +33,12 @@ class dbManager(context: Context) {
         val cursor = db?.query(dbName.TABLE_NAME, null, null, null, null, null, null)
 
         while(cursor?.moveToNext()!!) {
-                val dataText = cursor.getString(cursor.getColumnIndex(dbName.COLUMN_NAME_PERCENT))
-                cryptoNameList.add(dataText.toString())
+            val dataCrypto = cursor.getString(cursor.getColumnIndex(dbName.COLUMN_NAME_CRYPTO))
+            val dataPercent = cursor.getString(cursor.getColumnIndex(dbName.COLUMN_NAME_PERCENT))
+            cryptoNameList.add(dataCrypto.toString())
+            cryptoNameList.add(dataPercent.toString())
         }
-        cursor?.close()
+        cursor.close()
         return cryptoNameList
     }
 

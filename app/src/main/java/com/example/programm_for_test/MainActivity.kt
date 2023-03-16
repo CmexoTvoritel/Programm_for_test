@@ -25,10 +25,8 @@ class MainActivity : AppCompatActivity() {
         infoCrypto.text = ""
         val dataList = dbmanager.readDbData()
         infoCrypto.append(dataList.size.toString())
-        var i = 0
-        for(item in dataList) {
-            infoCrypto.append("$item +  $i")
-            i++
+        for(i in dataList.indices step 2) {
+            infoCrypto.append("${dataList[i]}: ${dataList[i+1]}")
             infoCrypto.append("\n")
         }
     }
