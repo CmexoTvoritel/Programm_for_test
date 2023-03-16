@@ -7,9 +7,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitClient {
     private var retrofit: Retrofit? = null
 
-    fun getClient(baseUrl: String): Retrofit {
+    fun getClient(): Retrofit {
         if(retrofit == null) {
-            retrofit = Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build()
+            retrofit = Retrofit.Builder().baseUrl("https://api.coingecko.com")
+                .addConverterFactory(GsonConverterFactory.create()).
+                build()
         }
         return retrofit!!
     }
